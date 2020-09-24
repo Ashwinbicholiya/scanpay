@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:retail/home_page.dart';
-import 'package:retail/login_page.dart';
+import 'package:retail/screens/home_page.dart';
+import 'package:retail/screens/login_page.dart';
 
 class Check extends StatelessWidget {
   @override

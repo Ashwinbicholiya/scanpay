@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:retail/Cart.dart';
+import 'package:retail/screens/Cart.dart';
 import 'package:retail/check.dart';
-import 'package:retail/signup.dart';
-import 'package:retail/splashscreen.dart';
-import 'login_page.dart';
-import 'home_page.dart';
+import 'package:retail/screens/signup.dart';
+import 'package:retail/screens/splashscreen.dart';
+import 'screens/login_page.dart';
+import 'screens/home_page.dart';
 void main() => runApp(
       MyApp(),
     );

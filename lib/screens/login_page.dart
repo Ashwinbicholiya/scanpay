@@ -2,7 +2,7 @@ import 'dart:io';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:retail/add_pro/add_product.dart';
-import 'package:retail/signup.dart';
+import 'package:retail/screens/signup.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:retail/services/AuthUtil.dart';
 

@@ -3,7 +3,7 @@ import 'dart:io';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:retail/home_page.dart';
+import 'package:retail/screens/home_page.dart';
 import 'package:retail/services/AuthUtil.dart';
 
 import 'package:firebase_auth/firebase_auth.dart';
