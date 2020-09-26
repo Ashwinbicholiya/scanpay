@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:razorpay_flutter/razorpay_flutter.dart';
 
 class Cart extends StatefulWidget {
   Cart({Key key, this.title}) : super(key: key);
@@ -13,6 +14,8 @@ class Cart extends StatefulWidget {
 
 class _Cart extends State<Cart> {
   FirebaseUser user;
+  Razorpay razorpay;
+  int price;
 
   Future<void> getUserData() async {
     FirebaseUser userData = await FirebaseAuth.instance.currentUser();
@@ -32,15 +35,20 @@ class _Cart extends State<Cart> {
   }
 
   Future gettotal() async {
-    double total = 0.0;
+    int total = 0;
     QuerySnapshot qn = await Firestore.instance
         .collection('userData')
         .document('${user.uid}')
         .collection('cartData')
         .getDocuments();
     for (int i = 0; i < qn.documents.length; i++) {
-       total = total + int.parse(qn.documents[i]['price']);
+      total = total + int.parse(qn.documents[i]['price']);
+      price=total;
     }
+    setState(() {
+    price=total;
+    return price;
+    });
     return total;
   }
 
@@ -49,6 +57,47 @@ class _Cart extends State<Cart> {
     super.initState();
     getUserData();
     gettotalId();
+    gettotal();
+    razorpay = new Razorpay();
+    razorpay.on(Razorpay.EVENT_PAYMENT_SUCCESS, handlerPaymentSuccess);
+    razorpay.on(Razorpay.EVENT_PAYMENT_ERROR, handlerErrorFailure);
+    razorpay.on(Razorpay.EVENT_EXTERNAL_WALLET, handlerExternalWallet);
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    razorpay.clear();
+  }
+
+  void openCheckout() {
+    var options = {
+      'key': 'rzp_test_s8sQF5perlBWcL',
+      'amount': price*100,
+      'name': 'Acme Corp.',
+      'description': 'Grocery Product',
+      'prefill': {'contact': '7400875874', 'email': '${user.email}'},
+      'external': {
+        'wallet': ['paytm']
+      }
+    };
+    try {
+      razorpay.open(options);
+    } catch (e) {
+      print(e.toString());
+    }
+  }
+
+  void handlerPaymentSuccess() {
+    print('Payment success');
+  }
+
+  void handlerErrorFailure() {
+    print('payment Error');
+  }
+
+  void handlerExternalWallet() {
+    print('External wallet');
   }
 
   @override
@@ -131,7 +180,6 @@ class _Cart extends State<Cart> {
                                           setState(() {
                                             gettotalId();
                                           });
-
                                           Firestore.instance
                                               .collection("userData")
                                               .document('${user.uid}')
@@ -231,21 +279,22 @@ class _Cart extends State<Cart> {
                             color: Colors.blue[600],
                             borderRadius: BorderRadius.circular(15)),
                         child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
                           children: <Widget>[
-                            Center(
-                              child: Text(
-                                "   Next",
-                                textAlign: TextAlign.center,
-                                style: TextStyle(
-                                  fontWeight: FontWeight.w900,
-                                  fontSize: 16,
-                                ),
+                            Text(
+                              "Pay",
+                              textAlign: TextAlign.center,
+                              style: TextStyle(
+                                fontWeight: FontWeight.w900,
+                                fontSize: 17,
                               ),
                             ),
                           ],
                         ),
                       ),
-                      onTap: () {},
+                      onTap: () {
+                        openCheckout();
+                      },
                     ),
                   ],
                 ),
