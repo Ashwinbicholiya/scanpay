@@ -17,10 +17,20 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   String _scanBarcode;
+  FirebaseUser user;
+
+  Future<void> getUserData() async {
+    FirebaseUser userData = await FirebaseAuth.instance.currentUser();
+    setState(() {
+      user = userData;
+      print(userData.uid);
+    });
+  }
 
   @override
   void initState() {
     super.initState();
+    getUserData();
   }
 
   startBarcodeScanStream() async {
@@ -82,7 +92,10 @@ class _HomePageState extends State<HomePage> {
         child: ListView(
           children: <Widget>[
             FutureBuilder(
-                future: FirebaseAuth.instance.currentUser(),
+                future: Firestore.instance
+                    .collection('users')
+                    .document('${user.uid}')
+                    .get(),
                 builder: (context, snapshot) {
                   if (snapshot.connectionState == ConnectionState.done) {
                     return UserAccountsDrawerHeader(
@@ -92,9 +105,13 @@ class _HomePageState extends State<HomePage> {
                           backgroundImage: NetworkImage(
                               "https://cdn2.iconfinder.com/data/icons/website-icons/512/User_Avatar-512.png"),
                         ),
+                        accountName: Text(
+                          "Name: ${snapshot.data['displayName']}",
+                          style: TextStyle(fontSize: 15),
+                        ),
                         accountEmail: Text(
-                          "${snapshot.data.email}",
-                          style: TextStyle(fontSize: 19),
+                          "Email: ${snapshot.data['email']}",
+                          style: TextStyle(fontSize: 15),
                         ));
                   } else {
                     return CircularProgressIndicator();
@@ -376,9 +393,10 @@ class ItemCard extends StatelessWidget {
                       print(e);
                     });
                 Scaffold.of(context).showSnackBar(new SnackBar(
-                  content: new Text('Added to Cart',
-                  style:TextStyle(color:Colors.white,fontSize: 18),
-                  textAlign: TextAlign.start, 
+                  content: new Text(
+                    'Added to Cart',
+                    style: TextStyle(color: Colors.white, fontSize: 18),
+                    textAlign: TextAlign.start,
                   ),
                   duration: Duration(milliseconds: 300),
                   backgroundColor: Color(0xFF3D82AE),

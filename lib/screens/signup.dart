@@ -21,6 +21,7 @@ class _SignupState extends State<Signup> {
   @override
   Widget build(BuildContext context) {
     TextEditingController emailController = TextEditingController();
+    TextEditingController contactController = TextEditingController();
     TextEditingController usernameController = TextEditingController();
     TextEditingController passwordController = TextEditingController();
     TextEditingController confirmPassController = TextEditingController();
@@ -59,7 +60,7 @@ class _SignupState extends State<Signup> {
                       labelStyle: TextStyle(
                         color: Colors.black,
                       ),
-                      errorStyle: TextStyle(color: Colors.white),
+                      errorStyle: TextStyle(color: Colors.black),
                       filled: true,
                       fillColor: Colors.white,
                       hintText: "Username",
@@ -91,6 +92,51 @@ class _SignupState extends State<Signup> {
                 Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: TextFormField(
+                    controller: contactController,
+                    keyboardType: TextInputType.phone,
+                    decoration: InputDecoration(
+                      prefixIcon: Icon(
+                        Icons.person_outline,
+                        color: Color(0xFF455A64),
+                      ),
+                      labelText: "Phone Number",
+                      labelStyle: TextStyle(
+                        color: Colors.black,
+                      ),
+                      errorStyle: TextStyle(color: Colors.black),
+                      filled: true,
+                      fillColor: Colors.white,
+                      hintText: "Phone Number",
+                      contentPadding: EdgeInsets.symmetric(
+                          vertical: 10.0, horizontal: 20.0),
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.all(Radius.circular(32.0)),
+                      ),
+                      enabledBorder: OutlineInputBorder(
+                        borderSide:
+                            BorderSide(color: Color(0xFF455A64), width: 1.0),
+                        borderRadius: BorderRadius.all(Radius.circular(32.0)),
+                      ),
+                      focusedBorder: OutlineInputBorder(
+                        borderSide:
+                            BorderSide(color: Color(0xFF455A64), width: 2.0),
+                        borderRadius: BorderRadius.all(Radius.circular(32.0)),
+                      ),
+                    ),
+                    validator: (value) {
+                      if (value.isEmpty) {
+                        return "Please enter a valid Phone Number";
+                      }
+                      if (value.length != 10) {
+                        return "Please enter a valid Phone Number";
+                      }
+                      return null;
+                    },
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: TextFormField(
                     controller: emailController,
                     keyboardType: TextInputType.emailAddress,
                     decoration: InputDecoration(
@@ -102,7 +148,7 @@ class _SignupState extends State<Signup> {
                       labelStyle: TextStyle(
                         color: Colors.black,
                       ),
-                      errorStyle: TextStyle(color: Colors.white),
+                      errorStyle: TextStyle(color: Colors.black),
                       filled: true,
                       fillColor: Colors.white,
                       hintText: "Email",
@@ -181,7 +227,7 @@ class _SignupState extends State<Signup> {
                       labelStyle: TextStyle(
                         color: Colors.black,
                       ),
-                      errorStyle: TextStyle(color: Colors.white),
+                      errorStyle: TextStyle(color: Colors.black),
                       filled: true,
                       fillColor: Colors.white,
                       hintText: "Password",
@@ -224,7 +270,7 @@ class _SignupState extends State<Signup> {
                       labelStyle: TextStyle(
                         color: Colors.black,
                       ),
-                      errorStyle: TextStyle(color: Colors.white),
+                      errorStyle: TextStyle(color: Colors.black),
                       filled: true,
                       fillColor: Colors.white,
                       hintText: "Confirm Password",
@@ -246,7 +292,7 @@ class _SignupState extends State<Signup> {
                     ),
                     validator: (value) {
                       if (value.isEmpty || value.length < 6) {
-                        return 'Please enter an email';
+                        return 'Please enter the same password';
                       }
                       if (value != passwordController.text) {
                         return 'Please enter the same password';
@@ -269,17 +315,16 @@ class _SignupState extends State<Signup> {
                       ),
                       onPressed: () {
                         if (_formKey.currentState.validate()) {
-                          // If the form is valid, display a Snackbar.
-//                      Scaffold.of(context)
-//                          .showSnackBar(SnackBar(content: Text('Processing Data')));
                           AuthUtil.registerUser(
-                                  emailController.text, passwordController.text)
-                              .then((result) {
+                            emailController.text,
+                            passwordController.text,
+                          ).then((result) {
                             Firestore.instance
                                 .collection('users')
                                 .document(result.user.uid)
                                 .setData({
-                              'username': usernameController.text,
+                              'displayName': usernameController.text,
+                              'phoneNumber': contactController.text,
                               'email': emailController.text,
                               "uid": result.user.uid
                             }).then((success) {

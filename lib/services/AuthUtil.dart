@@ -20,7 +20,8 @@ class AuthUtil {
   static Future<AuthResult> registerUser(
     username,
     password,
-  ) {
+  )
+   {
     return FirebaseAuth.instance
         .createUserWithEmailAndPassword(email: username, password: password)
         .then((value) {
