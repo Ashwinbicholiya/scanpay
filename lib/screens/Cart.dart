@@ -16,12 +16,26 @@ class _Cart extends State<Cart> {
   FirebaseUser user;
   Razorpay razorpay;
   int price;
+  String phoneNumber;
 
   Future<void> getUserData() async {
     FirebaseUser userData = await FirebaseAuth.instance.currentUser();
     setState(() {
       user = userData;
       print(userData.uid);
+      getUsercontact();
+    });
+  }
+
+  Future<void> getUsercontact() async {
+    DocumentSnapshot cn = await Firestore.instance
+        .collection('users')
+        .document('${user.uid}')
+        .get();
+    String number = cn.data['phoneNumber'];
+    setState(() {
+      phoneNumber = number;
+      return phoneNumber;
     });
   }
 
@@ -43,11 +57,11 @@ class _Cart extends State<Cart> {
         .getDocuments();
     for (int i = 0; i < qn.documents.length; i++) {
       total = total + int.parse(qn.documents[i]['price']);
-      price=total;
+      price = total;
     }
     setState(() {
-    price=total;
-    return price;
+      price = total;
+      return price;
     });
     return total;
   }
@@ -58,6 +72,7 @@ class _Cart extends State<Cart> {
     getUserData();
     gettotalId();
     gettotal();
+    getUsercontact();
     razorpay = new Razorpay();
     razorpay.on(Razorpay.EVENT_PAYMENT_SUCCESS, handlerPaymentSuccess);
     razorpay.on(Razorpay.EVENT_PAYMENT_ERROR, handlerErrorFailure);
@@ -73,10 +88,10 @@ class _Cart extends State<Cart> {
   void openCheckout() {
     var options = {
       'key': 'rzp_test_s8sQF5perlBWcL',
-      'amount': price*100,
+      'amount': price * 100,
       'name': 'Acme Corp.',
       'description': 'Grocery Product',
-      'prefill': {'contact': '7400875874', 'email': '${user.email}'},
+      'prefill': {'contact': phoneNumber, 'email': '${user.email}'},
       'external': {
         'wallet': ['paytm']
       }
