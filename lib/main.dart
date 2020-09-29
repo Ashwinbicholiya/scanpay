@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:retail/screens/Cart.dart';
 import 'package:retail/check.dart';
+import 'package:retail/screens/PurchaseHistory.dart';
 import 'package:retail/screens/signup.dart';
 import 'package:retail/screens/splashscreen.dart';
 import 'screens/login_page.dart';
@@ -21,6 +22,7 @@ class _MyAppState extends State<MyApp> {
     '/loginpage': (BuildContext context) => new LoginPage(),
     '/signup': (BuildContext context) => new Signup(),
     '/cartpage': (BuildContext context) => new Cart(),
+    '/purchasehistory':  (BuildContext context) => new PurchaseHistory(),
   };
 
   @override

@@ -3,6 +3,8 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:razorpay_flutter/razorpay_flutter.dart';
+import 'package:retail/screens/PurchaseHistory.dart';
+import 'package:toast/toast.dart';
 
 class Cart extends StatefulWidget {
   Cart({Key key, this.title}) : super(key: key);
@@ -103,16 +105,37 @@ class _Cart extends State<Cart> {
     }
   }
 
-  void handlerPaymentSuccess() {
+  void handlerPaymentSuccess(PaymentSuccessResponse response) async {
     print('Payment success');
+    Toast.show('Payment success', context);
+    await Firestore.instance
+        .collection('userData')
+        .document('${user.uid}')
+        .collection('cartData')
+        .getDocuments()
+        .then((querySnapshot) {
+      querySnapshot.documents.forEach((result) {
+        Firestore.instance
+            .collection('userOrders')
+            .document('${user.uid}')
+            .collection('orders')
+            .document()
+            .setData(result.data);
+      });
+    });
+    Navigator.push(context,
+        MaterialPageRoute(builder: (BuildContext context) => PurchaseHistory()));
+    razorpay.clear();
   }
 
   void handlerErrorFailure() {
     print('payment Error');
+    Toast.show('Payment Error', context);
   }
 
   void handlerExternalWallet() {
     print('External wallet');
+    Toast.show('External wallet', context);
   }
 
   @override

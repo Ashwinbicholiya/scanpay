@@ -6,6 +6,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:retail/screens/PurchaseHistory.dart';
 
 class HomePage extends StatefulWidget {
   HomePage({Key key, this.title}) : super(key: key);
@@ -16,7 +17,6 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  String _scanBarcode;
   FirebaseUser user;
 
   Future<void> getUserData() async {
@@ -27,10 +27,19 @@ class _HomePageState extends State<HomePage> {
     });
   }
 
+  Future<void> getUser() async {
+    DocumentSnapshot cn = await Firestore.instance
+        .collection('users')
+        .document('${user.uid}')
+        .get();
+    return cn;
+  }
+
   @override
   void initState() {
     super.initState();
     getUserData();
+    getUser();
   }
 
   startBarcodeScanStream() async {
@@ -54,10 +63,6 @@ class _HomePageState extends State<HomePage> {
     // message was in flight, we want to discard the reply rather than calling
     // setState to update our non-existent appearance.
     if (!mounted) return;
-
-    setState(() {
-      _scanBarcode = barcodeScanRes;
-    });
   }
 
   // Platform messages are asynchronous, so we initialize in an async method.
@@ -77,9 +82,47 @@ class _HomePageState extends State<HomePage> {
     // setState to update our non-existent appearance.
     if (!mounted) return;
 
-    setState(() {
-      _scanBarcode = barcodeScanRes;
-    });
+    if (barcodeScanRes != '-1' || null) {
+      return showDialog(
+          context: context,
+          builder: (context) {
+            return StreamBuilder(
+                stream: Firestore.instance
+                    .collection("products")
+                    .where("barcode", isEqualTo: '$barcodeScanRes')
+                    .snapshots(),
+                builder: (context, snapshot) {
+                  if (!snapshot.hasData) {
+                    return Dialog(
+                      child: Container(
+                        height: 300,
+                        child: Text('Product Not Found'),
+                      ),
+                    );
+                  } else {
+                    return Dialog(
+                      child: Container(
+                        height: 350,
+                        child: Column(children: [
+                          Container(
+                              height: 350,
+                              width: 165,
+                              child: ListView.builder(
+                                scrollDirection: Axis.horizontal,
+                                itemCount: snapshot.data.documents.length,
+                                itemBuilder: (context, index) {
+                                  DocumentSnapshot products =
+                                      snapshot.data.documents[index];
+                                  return ScanCard(products: products);
+                                },
+                              )),
+                        ]),
+                      ),
+                    );
+                  }
+                });
+          });
+    }
   }
 
   @override
@@ -92,10 +135,7 @@ class _HomePageState extends State<HomePage> {
         child: ListView(
           children: <Widget>[
             FutureBuilder(
-                future: Firestore.instance
-                    .collection('users')
-                    .document('${user.uid}')
-                    .get(),
+                future: getUser(),
                 builder: (context, snapshot) {
                   if (snapshot.connectionState == ConnectionState.done) {
                     return UserAccountsDrawerHeader(
@@ -126,7 +166,12 @@ class _HomePageState extends State<HomePage> {
                     fontWeight: FontWeight.w400,
                     fontSize: 20),
               ),
-              onTap: () {},
+              onTap: () {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (BuildContext context) => PurchaseHistory()));
+              },
             ),
             ListTile(
               leading: Icon(Icons.exit_to_app),
@@ -265,49 +310,6 @@ class _HomePageState extends State<HomePage> {
         child: FloatingActionButton.extended(
           onPressed: () {
             scanBarcodeNormal();
-            if (_scanBarcode != '-1' || null) {
-              return showDialog(
-                  context: context,
-                  builder: (context) {
-                    return Dialog(
-                      child: Container(
-                        height: 350,
-                        child: Column(
-                          children: [
-                            StreamBuilder(
-                                stream: Firestore.instance
-                                    .collection("products")
-                                    .where("barcode",
-                                        isEqualTo: '$_scanBarcode')
-                                    .snapshots(),
-                                builder: (context, snapshot) {
-                                  if (snapshot.data == null)
-                                    return Text(
-                                      'Scan Barcode',
-                                      style: TextStyle(
-                                          fontSize: 20,
-                                          fontWeight: FontWeight.bold),
-                                    );
-                                  return Container(
-                                      height: 350,
-                                      width: 165,
-                                      child: ListView.builder(
-                                        scrollDirection: Axis.horizontal,
-                                        itemCount:
-                                            snapshot.data.documents.length,
-                                        itemBuilder: (context, index) {
-                                          DocumentSnapshot products =
-                                              snapshot.data.documents[index];
-                                          return ScanCard(products: products);
-                                        },
-                                      ));
-                                }),
-                          ],
-                        ),
-                      ),
-                    );
-                  });
-            }
           },
           backgroundColor: Colors.black,
           icon: Icon(
