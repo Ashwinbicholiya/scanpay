@@ -1,6 +1,6 @@
 #ScanPay
 
-<img align="left" width="1080" height="1080" src=![ss](https://user-images.githubusercontent.com/47949413/95170311-e23add80-07d1-11eb-960c-2d7ace0604f2.jpg)>
+<img align="left" width="1080" height="1080" src="![ss](https://user-images.githubusercontent.com/47949413/95170311-e23add80-07d1-11eb-960c-2d7ace0604f2.jpg)">
 ![ss](https://user-images.githubusercontent.com/47949413/95170311-e23add80-07d1-11eb-960c-2d7ace0604f2.jpg)
 ![loginpage](https://user-images.githubusercontent.com/47949413/95170334-e7982800-07d1-11eb-9bd1-15c3b3e7ca1b.jpg)
 ![Signup](https://user-images.githubusercontent.com/47949413/95170348-ee269f80-07d1-11eb-9ef6-6601f24ff710.jpg)
