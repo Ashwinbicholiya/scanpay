@@ -1,12 +1,10 @@
 #ScanPay
 
 Mobile App in Flutter for self-checkout.
-● Mobile payment system that allows a customer conveniently buy and
+
+Mobile payment system that allows a customer conveniently buy and
 complete the payment for products without the need to go through the
 cashier checkout point.
-
-
-
 
 <img align="left" width="300" height="600" src="https://user-images.githubusercontent.com/47949413/95170311-e23add80-07d1-11eb-960c-2d7ace0604f2.jpg">
 <img align="Center" width="300" height="600" src="https://user-images.githubusercontent.com/47949413/95170334-e7982800-07d1-11eb-9bd1-15c3b3e7ca1b.jpg">
