@@ -131,6 +131,7 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     final theme = Provider.of<ThemeNotifier>(context);
     return Scaffold(
+      backgroundColor: Colors.grey[250],
       floatingActionButton: floatingBar(),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
       appBar: buildAppBar(),
@@ -215,32 +216,34 @@ class _HomePageState extends State<HomePage> {
           ],
         ),
       ),
-      body: Column(
-        mainAxisAlignment: MainAxisAlignment.start,
-        children: [
-          SizedBox(
-            height: 30,
-          ),
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Text(
-              ' Food Items',
-              style: TextStyle(fontWeight: FontWeight.w300, fontSize: 20),
+      body: SingleChildScrollView(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: [
+            SizedBox(
+              height: 30,
             ),
-          ),
-          buildStreamBuilder(),
-          SizedBox(
-            height: 30,
-          ),
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Text(
-              ' Clothes',
-              style: TextStyle(fontWeight: FontWeight.w300, fontSize: 20),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Text(
+                'Food Items',
+                style: TextStyle(fontWeight: FontWeight.w300, fontSize: 20),
+              ),
             ),
-          ),
-          buildStreamClothes()
-        ],
+            buildStreamBuilder(),
+            SizedBox(
+              height: 30,
+            ),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Text(
+                'Clothes',
+                style: TextStyle(fontWeight: FontWeight.w300, fontSize: 20),
+              ),
+            ),
+            buildStreamClothes()
+          ],
+        ),
       ),
     );
   }
@@ -391,8 +394,9 @@ class ItemCard extends StatelessWidget {
             ),
             GestureDetector(
               child: Icon(
-                Icons.add_shopping_cart,
+                CupertinoIcons.cart_fill_badge_plus,
                 color: Colors.black,
+                size: 30,
               ),
               onTap: () {
                 DocumentReference documentReference = Firestore.instance
