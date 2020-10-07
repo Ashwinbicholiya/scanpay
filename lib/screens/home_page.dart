@@ -7,6 +7,8 @@ import 'package:flutter/services.dart';
 import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:retail/screens/PurchaseHistory.dart';
+import 'package:retail/services/theme.dart';
+import 'package:provider/provider.dart';
 
 class HomePage extends StatefulWidget {
   HomePage({Key key, this.title}) : super(key: key);
@@ -127,6 +129,7 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Provider.of<ThemeNotifier>(context);
     return Scaffold(
       floatingActionButton: floatingBar(),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
@@ -190,6 +193,23 @@ class _HomePageState extends State<HomePage> {
                         '/loginpage', (Route<dynamic> route) => false);
                   },
                 );
+              },
+            ),
+            ListTile(
+              leading: Icon(
+                theme.myTheme == MyTheme.Light
+                    ? Icons.wb_sunny
+                    : FontAwesomeIcons.solidMoon,
+              ),
+              title: Text(
+                "Dark Mode",
+                style: TextStyle(
+                    fontStyle: FontStyle.normal,
+                    fontWeight: FontWeight.w400,
+                    fontSize: 20),
+              ),
+              onTap: () {
+                theme.switchTheme();
               },
             ),
           ],

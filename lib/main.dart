@@ -9,6 +9,7 @@ import 'package:retail/services/theme.dart';
 import 'screens/home_page.dart';
 import 'screens/login_page.dart';
 import 'screens/home_page.dart';
+import 'screens/splashscreen.dart';
 
 void main() {
   runApp(MultiProvider(providers: [
@@ -36,11 +37,8 @@ class _MyAppState extends State<MyApp> {
     return MaterialApp(
       title: 'RetailApp',
       debugShowCheckedModeBanner: false,
-      theme: ThemeData(
-        primarySwatch: Colors.lightBlue,
-        fontFamily: 'Nunito',
-      ),
-      home: HomePage(),
+      theme: Provider.of<ThemeNotifier>(context).currentTheme,
+      home: SplashScreen(),
       routes: routes,
     );
   }
