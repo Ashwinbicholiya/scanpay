@@ -1,14 +1,20 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:retail/screens/Cart.dart';
 import 'package:retail/check.dart';
 import 'package:retail/screens/PurchaseHistory.dart';
 import 'package:retail/screens/signup.dart';
 import 'package:retail/screens/splashscreen.dart';
+import 'package:retail/services/theme.dart';
+import 'screens/home_page.dart';
 import 'screens/login_page.dart';
 import 'screens/home_page.dart';
-void main() => runApp(
-      MyApp(),
-    );
+
+void main() {
+  runApp(MultiProvider(providers: [
+    ChangeNotifierProvider(create: (_) => ThemeNotifier()),
+  ], child: MyApp()));
+}
 
 class MyApp extends StatefulWidget {
   @override
@@ -22,7 +28,7 @@ class _MyAppState extends State<MyApp> {
     '/loginpage': (BuildContext context) => new LoginPage(),
     '/signup': (BuildContext context) => new Signup(),
     '/cartpage': (BuildContext context) => new Cart(),
-    '/purchasehistory':  (BuildContext context) => new PurchaseHistory(),
+    '/purchasehistory': (BuildContext context) => new PurchaseHistory(),
   };
 
   @override
@@ -34,7 +40,7 @@ class _MyAppState extends State<MyApp> {
         primarySwatch: Colors.lightBlue,
         fontFamily: 'Nunito',
       ),
-      home: SplashScreen(),
+      home: HomePage(),
       routes: routes,
     );
   }
