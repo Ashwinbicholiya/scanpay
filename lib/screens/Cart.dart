@@ -89,7 +89,7 @@ class _Cart extends State<Cart> {
 
   void openCheckout() {
     var options = {
-      'key': 'rzp_test_s8sQF5perlBWcL',
+      'key': '',
       'amount': price * 100,
       'name': 'Acme Corp.',
       'description': 'Grocery Product',
@@ -123,8 +123,10 @@ class _Cart extends State<Cart> {
             .setData(result.data);
       });
     });
-    Navigator.push(context,
-        MaterialPageRoute(builder: (BuildContext context) => PurchaseHistory()));
+    Navigator.push(
+        context,
+        MaterialPageRoute(
+            builder: (BuildContext context) => PurchaseHistory()));
     razorpay.clear();
   }
 
@@ -160,18 +162,19 @@ class _Cart extends State<Cart> {
                       );
                     return Container(
                         height: 510,
-                        width: 400,
+                        width: 395,
                         child: ListView.separated(
                             itemCount: snapshot.data.documents.length,
                             itemBuilder: (context, index) {
                               DocumentSnapshot products =
                                   snapshot.data.documents[index];
                               return Row(
-                                mainAxisAlignment: MainAxisAlignment.start,
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
                                 children: [
                                   Column(
                                     children: [
-                                      SizedBox(height: 10),
+                                      SizedBox(height: 5),
                                       Container(
                                         padding: EdgeInsets.all(1.0),
                                         height: 80,
@@ -184,66 +187,51 @@ class _Cart extends State<Cart> {
                                       ),
                                     ],
                                   ),
-                                  SizedBox(width: 10),
-                                  Padding(
-                                    padding: const EdgeInsets.symmetric(
-                                        vertical: 20.0 / 4),
-                                    child: Text(
-                                      products['name'],
-                                      style: TextStyle(
-                                        color: Colors.black,
-                                        fontSize: 20,
-                                      ),
+                                  Text(
+                                    products['name'],
+                                    style: TextStyle(
+                                      color: Colors.black,
+                                      fontSize: 20,
                                     ),
                                   ),
-                                  SizedBox(
-                                    width: 10,
+                                  Text(
+                                    "\₹ " + products['price'],
+                                    style:
+                                        TextStyle(fontWeight: FontWeight.bold),
                                   ),
-                                  Row(
-                                    children: [
-                                      Text(
-                                        "\₹ " + products['price'],
-                                        style: TextStyle(
-                                            fontWeight: FontWeight.bold),
-                                      ),
-                                      SizedBox(
-                                        width: 50,
-                                      ),
-                                      GestureDetector(
-                                        child: Icon(
-                                          Icons.delete,
-                                          color: Colors.red,
+                                  GestureDetector(
+                                    child: Icon(
+                                      Icons.delete,
+                                      color: Colors.red,
+                                      size: 40,
+                                    ),
+                                    onTap: () {
+                                      setState(() {
+                                        gettotalId();
+                                      });
+                                      Firestore.instance
+                                          .collection("userData")
+                                          .document('${user.uid}')
+                                          .collection('cartData')
+                                          .document(products['id'])
+                                          .delete()
+                                          .then((result) {})
+                                          .catchError((e) {
+                                        print(e);
+                                      });
+                                      Scaffold.of(context)
+                                          .showSnackBar(new SnackBar(
+                                        content: new Text(
+                                          'Deleted',
+                                          style: TextStyle(
+                                              color: Colors.white,
+                                              fontSize: 15),
+                                          textAlign: TextAlign.start,
                                         ),
-                                        onTap: () {
-                                          setState(() {
-                                            gettotalId();
-                                          });
-                                          Firestore.instance
-                                              .collection("userData")
-                                              .document('${user.uid}')
-                                              .collection('cartData')
-                                              .document(products['id'])
-                                              .delete()
-                                              .then((result) {})
-                                              .catchError((e) {
-                                            print(e);
-                                          });
-                                          Scaffold.of(context)
-                                              .showSnackBar(new SnackBar(
-                                            content: new Text(
-                                              'Deleted',
-                                              style: TextStyle(
-                                                  color: Colors.white,
-                                                  fontSize: 15),
-                                              textAlign: TextAlign.start,
-                                            ),
-                                            duration:
-                                                Duration(milliseconds: 300),
-                                            backgroundColor: Color(0xFF3D82AE),
-                                          ));
-                                        },
-                                      ),
-                                    ],
+                                        duration: Duration(milliseconds: 300),
+                                        backgroundColor: Color(0xFF3D82AE),
+                                      ));
+                                    },
                                   )
                                 ],
                               );
