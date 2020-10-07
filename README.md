@@ -11,7 +11,7 @@ cashier checkout point.
 
 <img align="Center" width="250" height="450" src="https://user-images.githubusercontent.com/47949413/95170311-e23add80-07d1-11eb-960c-2d7ace0604f2.jpg">
 
-<img align="left" width="259" height="450" src="https://user-images.githubusercontent.com/47949413/95170334-e7982800-07d1-11eb-9bd1-15c3b3e7ca1b.jpg">
+<img align="left" width="250" height="450" src="https://user-images.githubusercontent.com/47949413/95170334-e7982800-07d1-11eb-9bd1-15c3b3e7ca1b.jpg">
 <img align="Center" width="250" height="450" src="https://user-images.githubusercontent.com/47949413/95170348-ee269f80-07d1-11eb-9ef6-6601f24ff710.jpg">
 
 <img align="left" width="250" height="450" src="https://user-images.githubusercontent.com/47949413/95170359-f252bd00-07d1-11eb-9509-a2b7ec4a6811.jpg">
