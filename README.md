@@ -15,9 +15,9 @@ Mobile application that allows a customer conveniently buy and complete the paym
 
 ### Gif
 <a href="https://www.linkedin.com/in/ashwin-bicholiya-9938481a0/">
-  <img align="left" width="180" height="320" src="https://user-images.githubusercontent.com/47949413/95316775-e0484b80-08b1-11eb-92c2-c763122d3cbd.gif">
+  <img align="left" width="180" height="320" src="https://user-images.githubusercontent.com/47949413/95316775-e0484b80-08b1-11eb-92c2-c763122d3cbd.gif"/>
 </a>
-<br/>
+<br/
 ### Some Screenshot
 
 <img align="left" width="150" height="250" src="https://user-images.githubusercontent.com/47949413/95170311-e23add80-07d1-11eb-960c-2d7ace0604f2.jpg">
