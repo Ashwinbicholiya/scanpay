@@ -15,8 +15,7 @@ Mobile application that allows a customer conveniently buy and complete the paym
 
 ### Gif
 <p float="left">
-  <img align="left" width="180" height="320" src="https://user-images.githubusercontent.com/47949413/95316775-e0484b80-08b1-11eb-92c2-c763122d3cbd.gif" />
-  
+  <img align="left" width="180" height="320" src="https://user-images.githubusercontent.com/47949413/95316775-e0484b80-08b1-11eb-92c2-c763122d3cbd.gif" /> <br/>
 </p>
 ### Some Screenshot
 
