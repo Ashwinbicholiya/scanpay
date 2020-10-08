@@ -1,4 +1,4 @@
-### ScanPay
+### ScanPay(Self Checkout Application)
 
 ### Show some :heart: and star the repo to support the project
 
@@ -6,8 +6,6 @@
   <img align="left" alt="Ashwin's Linkdein" width="22px" src="https://cdn.jsdelivr.net/npm/simple-icons@v3/icons/linkedin.svg" />
 </a>[Linkedin]
 <br/>
-
-### Mobile App for self-checkout.
 
 ### About ScanPay
 
