@@ -38,3 +38,9 @@ Mobile application that allows a customer conveniently buy and complete the paym
     LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
     OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
     SOFTWARE.
+
+## Getting Started
+For help getting started with Flutter, view our online
+[documentation](http://flutter.io/).
+<br/>
+For help on editing plugin code, view the [documentation](https://flutter.io/platform-plugins/#edit-code).
