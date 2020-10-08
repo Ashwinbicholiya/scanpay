@@ -14,14 +14,15 @@
 Mobile application that allows a customer conveniently buy and complete the payment for products without the need to go through the cashier checkout point.
 
 ### Gif
-
-<img align="left" width="180" height="320" src="https://user-images.githubusercontent.com/47949413/95316775-e0484b80-08b1-11eb-92c2-c763122d3cbd.gif">
-
+<a href="https://www.linkedin.com/in/ashwin-bicholiya-9938481a0/">
+  <img align="left" width="180" height="320" src="https://user-images.githubusercontent.com/47949413/95316775-e0484b80-08b1-11eb-92c2-c763122d3cbd.gif">
+</a>
+<br/>
 ### Some Screenshot
 
 <img align="left" width="150" height="250" src="https://user-images.githubusercontent.com/47949413/95170311-e23add80-07d1-11eb-960c-2d7ace0604f2.jpg">
 <img align="center" width="150" height="250" src="https://user-images.githubusercontent.com/47949413/95170334-e7982800-07d1-11eb-9bd1-15c3b3e7ca1b.jpg">
-<img width="150" height="250" src="https://user-images.githubusercontent.com/47949413/95170348-ee269f80-07d1-11eb-9ef6-6601f24ff710.jpg">
+<img align="center"width="150" height="250" src="https://user-images.githubusercontent.com/47949413/95170348-ee269f80-07d1-11eb-9ef6-6601f24ff710.jpg">
 
 <img align="left" width="150" height="250" src="https://user-images.githubusercontent.com/47949413/95170359-f252bd00-07d1-11eb-9509-a2b7ec4a6811.jpg">
 <img align="center" width="150" height="250" src="https://user-images.githubusercontent.com/47949413/95170371-f7177100-07d1-11eb-8d3d-39888e4001b9.jpg">
