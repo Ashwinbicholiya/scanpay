@@ -1,4 +1,4 @@
-## ScanPay
+### ScanPay
 
 ### Show some :heart: and star the repo to support the project
 
