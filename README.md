@@ -1,11 +1,14 @@
 #ScanPay
 
-##Mobile App in Flutter for self-checkout.
+### Show some :heart: and star the repo to support the project
 
-##Mobile application that allows a customer conveniently buy and
-complete the payment for products without the need to go through the
-cashier checkout point.
+### Mobile App in Flutter for self-checkout.
 
+### About ScanPay
+
+Mobile application that allows a customer conveniently buy and complete the payment for products without the need to go through the cashier checkout point.
+
+### Some Screenshots
 
 <img align="left" width="250" height="450" src="https://user-images.githubusercontent.com/47949413/95316775-e0484b80-08b1-11eb-92c2-c763122d3cbd.gif">
 
