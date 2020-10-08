@@ -20,6 +20,15 @@ Mobile application that allows a customer conveniently buy and complete the paym
 <br/>
 <br/>
 
+
+
+
+
+
+
+
+
+
 ### Some Screenshot
 
 <img align="left" width="150" height="250" src="https://user-images.githubusercontent.com/47949413/95170311-e23add80-07d1-11eb-960c-2d7ace0604f2.jpg">
